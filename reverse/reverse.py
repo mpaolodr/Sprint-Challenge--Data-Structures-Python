@@ -49,13 +49,22 @@ class LinkedList:
         if not self.head.next_node:
             return self.head
 
-        self.add_to_head(node.value)
-        if node.next_node is not None:
-            # grab data before removing pointer to next node
-            next_node = node.next_node
-            next_prev_node = node
+        # don't do anything to the head
+        if prev == None:
+            self.reverse_list(node.next_node, node)
 
-            # rewire so current head will point to None
+            # remove head's pointer to next node
             node.next_node = None
 
-            self.reverse_list(next_node, next_prev_node)
+        else:
+
+            self.add_to_head(node.value)
+            if node.next_node is not None:
+                # grab data before removing pointer to next node
+                next_node = node.next_node
+                next_prev_node = node
+
+                # rewire so current head will point to None
+                node.next_node = None
+
+                self.reverse_list(next_node, next_prev_node)
